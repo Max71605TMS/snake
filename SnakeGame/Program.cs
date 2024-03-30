@@ -5,6 +5,8 @@
 
     static async Task Main(string[] args)
     {
+
+        //team2
         Init();
         Task conductSnakeTask = Task.Run(() => GuideSnake());
         Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
