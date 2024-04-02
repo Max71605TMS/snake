@@ -1,5 +1,8 @@
 ﻿class Program
 {
+    const int SizeX= 20;
+    const int SizeY = 50;
+
     static async Task Main(string[] args)
     {
         Init();
@@ -17,13 +20,25 @@
 
     private static Task GuideSnake()
     {
+
+
+
         return Task.CompletedTask;
     }
     private static Task ExecuteGameProcess()
     {
+        while (true)
+        {
+            DoAct();
+            Thread.Sleep(1000);
+        }
         return Task.CompletedTask;
     }
 
+    private static void DoAct()
+    {
+
+    }
 
 
 }
