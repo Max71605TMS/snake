@@ -11,5 +11,12 @@ namespace SnakeGame
         public int X {get; set;}
         public int Y { get; set; }
         public Image Image { get; set;}
+
+        public Pixel(int x, int y, Image image)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Image = image;
+        }
     }
 }
