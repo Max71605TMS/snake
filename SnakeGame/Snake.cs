@@ -26,6 +26,19 @@ namespace SnakeGame
         {
 
         }
+        public Snake(int sizeX, int sizeY)
+        {
+            int xHead = sizeX / 2;
+            int yHead = sizeY / 2;
+            _head = new Pixel(xHead, yHead, Image.Snake);
+            Pixels.Enqueue(_head);
+            for (int i = 0; i < 2; i++)
+            {
+                Pixel pixel =  new  Pixel(xHead-1, yHead, Image.Snake); 
+            }
+            Direction = Direction.LEFT;
+
+        }
 
         private void HealthCheck()
         {
