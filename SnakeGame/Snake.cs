@@ -46,7 +46,7 @@ namespace SnakeGame
                     break;
                 case Direction.RIGHT:
                     if (_head.X + 1 == dot.Pixel.X && _head.Y == dot.Pixel.Y)
-                    {
+        {
                         EatingDot(dot);
                     }
                     break;
