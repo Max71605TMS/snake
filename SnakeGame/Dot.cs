@@ -23,10 +23,10 @@ namespace SnakeGame
         public void Generate(Snake snake)
         {
             Random random = new Random();
-            Pixel newPix = new Pixel();
+            var y = random.Next(1, _sizeY);
+            var x = random.Next(1, _sizeX);
 
-            newPix.Y = random.Next(1, _sizeY);
-            newPix.X = random.Next(1, _sizeX);
+            Pixel newPix = new Pixel(x, y, Image.Dot);
 
             if (snake.Pixels.Count == 0)
             {
