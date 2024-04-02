@@ -20,13 +20,13 @@ namespace SnakeGame
         public void Move(Direction directionToGo)
         {
             Pixels.Dequeue();
-            
+
             switch (directionToGo)
             {
                 case Direction.UP:
                     if (Direction != Direction.DOWN)
                     {
-                        _head = new Pixel(_head.X, _head.Y-1, Image.Snake);
+                        _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
                         Pixels.Enqueue(_head);
                     }
                     break;
@@ -40,14 +40,14 @@ namespace SnakeGame
                 case Direction.LEFT:
                     if (Direction != Direction.RIGHT)
                     {
-                        _head = new Pixel(_head.X-1, _head.Y, Image.Snake);
+                        _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
                         Pixels.Enqueue(_head);
                     }
                     break;
                 case Direction.RIGHT:
                     if (Direction != Direction.LEFT)
                     {
-                        _head = new Pixel(_head.X+1, _head.Y, Image.Snake);
+                        _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
                         Pixels.Enqueue(_head);
                     }
                     break;
