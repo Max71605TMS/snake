@@ -4,10 +4,11 @@ class Program
 {
     const int SizeX= 20;
     const int SizeY = 50;
+    const int SnakeLength = 3; 
 
     static async Task Main(string[] args)
     {
-
+       
         //team2
         Init();
         Task conductSnakeTask = Task.Run(() => GuideSnake());
@@ -32,29 +33,14 @@ class Program
     }
     private static Task ExecuteGameProcess()
     {
-        while (Snake.IsAlive(true))
-        {
-            
-
-            DoAct();
-            Thread.Sleep(1000);
-        }
         return Task.CompletedTask;
     }
 
     private static void DoAct()
     {
-        int score = 0;
+       
 
-        while (Snake.IsAlive(true))
-        {
-            Frame.Clear();
-            Frame.Display();
-            Console.WriteLine(score);
-            Snake.Move();
-
-        }
-        
+        Console.ReadKey();
     }
 
 
