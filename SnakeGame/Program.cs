@@ -8,6 +8,7 @@ class Program
 
     static async Task Main(string[] args)
     {
+        Snake snake = new Snake(SizeX, SizeY, SnakeLength);
         //team2
         Init();
         Task conductSnakeTask = Task.Run(() => GuideSnake( snake));
