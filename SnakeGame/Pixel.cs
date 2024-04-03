@@ -14,9 +14,9 @@ namespace SnakeGame
 
         public Pixel(int x, int y, Image image)
         {
-            this.X = x;
-            this.Y = y;
-            this.Image = image;
+            X = x;
+            Y = y;
+            Image = image;
         }
     }
 }
