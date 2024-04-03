@@ -9,40 +9,79 @@ namespace SnakeGame
     public class Snake
     {
         private Pixel _head;
-        public Queue<Pixel> Pixels {  get; set; }
+        public Queue<Pixel> Pixels { get; set; }
 
-        public Direction Direction { get; set; }
+        public Direction Direction { get; set; } = Direction.LEFT;
 
         public int Length { get; }
 
-        public bool IsAlive { get; } = true;
+        public bool IsAlive { get; set; } = true;
+
+        public Snake(int frameSizeX, int frameSizeY, int snakeLength)
+        {
+            Pixels = new Queue<Pixel>();
+
+            int xHead = frameSizeX / 2;
+            int yHead = frameSizeY / 2;
+            _head = new Pixel(xHead, yHead, Image.Snake);
+
+            for (int i = snakeLength - 1; i > 0; i--)
+            {
+                var pixel = new Pixel(xHead + i, yHead, Image.Snake);
+                Pixels.Enqueue(pixel);
+            }
+
+            Pixels.Enqueue(_head);
+        }
 
         public void Move()
         {
+            //Отрезаем хвост змеи при каждом движении
+            Pixels.Dequeue();
 
+            //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
+            switch (Direction)
+            {
+                case Direction.UP:
+                    _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.DOWN:
+                    _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.LEFT:
+                    _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.RIGHT:
+                    _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+            }
         }
 
         public void TryEatDot()
         {
-
-        }
-        public Snake(int sizeX, int sizeY)
-        {
-            int xHead = sizeX / 2;
-            int yHead = sizeY / 2;
-            _head = new Pixel(xHead, yHead, Image.Snake);
-            Pixels.Enqueue(_head);
-            for (int i = 0; i < 2; i++)
-            {
-                Pixel pixel =  new  Pixel(xHead-1, yHead, Image.Snake); 
-            }
-            Direction = Direction.LEFT;
-
         }
 
         private void HealthCheck()
         {
-
+            switch (Direction)
+            {
+                case Direction.UP:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y - 1, Image.Snake));
+                    break;
+                case Direction.DOWN:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y + 1, Image.Snake));
+                    break;
+                case Direction.LEFT:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X - 1, _head.Y, Image.Snake));
+                    break;
+                case Direction.RIGHT:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X + 1, _head.Y, Image.Snake));
+                    break;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     const int SizeX= 20;
     const int SizeY = 50;
+    const int SnakeLength = 3; 
 
     static async Task Main(string[] args)
     {
