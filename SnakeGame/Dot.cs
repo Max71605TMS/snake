@@ -25,8 +25,8 @@ namespace SnakeGame
             Random random = new Random();
             Pixel newPix = new Pixel();
 
-            newPix.Y = random.Next(1, _sizeY);
-            newPix.X = random.Next(1, _sizeX);
+            newPix.Y = random.Next(1, _sizeY -1);
+            newPix.X = random.Next(1, _sizeX -1);
 
             if (snake.Pixels.Count == 0)
             {
