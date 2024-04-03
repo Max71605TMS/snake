@@ -15,9 +15,9 @@ namespace SnakeGame
 
         public int Length { get; }
 
-        public bool IsAlive { get; } = true;
+        public bool IsAlive { get; set; } = true;
 
-        public Snake(int frameSizeX, int frameSizeY)
+        public Snake(int frameSizeX, int frameSizeY, int snakeLength)
         {
             Pixels = new Queue<Pixel>();
 
@@ -25,7 +25,7 @@ namespace SnakeGame
             int yHead = frameSizeY / 2;
             _head = new Pixel(xHead, yHead, Image.Snake);
 
-            for (int i = 2; i > 0; i--)
+            for (int i = snakeLength - 1; i > 0; i--)
             {
                 var pixel = new Pixel(xHead + i, yHead, Image.Snake);
                 Pixels.Enqueue(pixel);
@@ -65,9 +65,23 @@ namespace SnakeGame
         {
         }
 
-
         private void HealthCheck()
         {
+            switch (Direction)
+            {
+                case Direction.UP:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y - 1, Image.Snake));
+                    break;
+                case Direction.DOWN:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y + 1, Image.Snake));
+                    break;
+                case Direction.LEFT:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X - 1, _head.Y, Image.Snake));
+                    break;
+                case Direction.RIGHT:
+                    IsAlive = !Pixels.Contains(new Pixel(_head.X + 1, _head.Y, Image.Snake));
+                    break;
+            }
         }
     }
 }
