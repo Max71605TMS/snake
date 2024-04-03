@@ -13,7 +13,7 @@ namespace SnakeGame
         private int _sizeX;
         private int _sizeY;
 
-        public Frame(int _sizeY, int _sizeX) 
+        public Frame(int _sizeX, int _sizeY) 
         {
             _values = new Image[_sizeY, _sizeX];
             int Y = 0;
