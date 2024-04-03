@@ -11,18 +11,18 @@ namespace SnakeGame
         private Pixel _head;
         public Queue<Pixel> Pixels { get; set; }
 
-        public Direction Direction { get; set; }
+        public Direction Direction { get; set; } = Direction.LEFT;
 
         public int Length { get; }
 
         public bool IsAlive { get; } = true;
 
-        public Snake(int sizeX, int sizeY)
+        public Snake(int frameSizeX, int frameSizeY)
         {
             Pixels = new Queue<Pixel>();
 
-            int xHead = sizeX / 2;
-            int yHead = sizeY / 2;
+            int xHead = frameSizeX / 2;
+            int yHead = frameSizeY / 2;
             _head = new Pixel(xHead, yHead, Image.Snake);
 
             for (int i = 2; i > 0; i--)
@@ -32,7 +32,6 @@ namespace SnakeGame
             }
 
             Pixels.Enqueue(_head);
-            Direction = Direction.LEFT;
         }
 
         public void Move()
