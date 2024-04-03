@@ -37,6 +37,7 @@ namespace SnakeGame
         public void Move()
         {
             //Отрезаем хвост змеи при каждом движении
+            Pixels.Peek().Image = Image.Empty;
             Pixels.Dequeue();
 
             //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди

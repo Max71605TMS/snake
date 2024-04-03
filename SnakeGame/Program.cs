@@ -2,8 +2,8 @@
 using System.Xml.Linq;
 class Program
 {
-    const int SizeX= 20;
-    const int SizeY = 50;
+    const int SizeX= 50;
+    const int SizeY = 20;
     const int SnakeLength = 3; 
 
     static async Task Main(string[] args)
