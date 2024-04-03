@@ -1,11 +1,14 @@
-﻿class Program
+﻿using SnakeGame;
+
+class Program
 {
     const int SizeX= 20;
     const int SizeY = 50;
+    const int SnakeLength = 3; 
 
     static async Task Main(string[] args)
     {
-
+       
         //team2
         Init();
         Task conductSnakeTask = Task.Run(() => GuideSnake());
@@ -22,8 +25,7 @@
 
     private static Task GuideSnake()
     {
-
-
+     
 
         return Task.CompletedTask;
     }
@@ -39,7 +41,9 @@
 
     private static void DoAct()
     {
+       
 
+        Console.ReadKey();
     }
 
 
