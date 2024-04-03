@@ -17,47 +17,6 @@ namespace SnakeGame
 
         public bool IsAlive { get; } = true;
 
-        public void Move(Direction directionToGo)
-        {
-            Pixels.Dequeue();
-
-            switch (directionToGo)
-            {
-                case Direction.UP:
-                    if (Direction != Direction.DOWN)
-                    {
-                        _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
-                        Pixels.Enqueue(_head);
-                    }
-                    break;
-                case Direction.DOWN:
-                    if (Direction != Direction.UP)
-                    {
-                        _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
-                        Pixels.Enqueue(_head);
-                    }
-                    break;
-                case Direction.LEFT:
-                    if (Direction != Direction.RIGHT)
-                    {
-                        _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
-                        Pixels.Enqueue(_head);
-                    }
-                    break;
-                case Direction.RIGHT:
-                    if (Direction != Direction.LEFT)
-                    {
-                        _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
-                        Pixels.Enqueue(_head);
-                    }
-                    break;
-            }
-        }
-
-        public void TryEatDot()
-        {
-
-        }
         public Snake(int sizeX, int sizeY)
         {
             Pixels = new Queue<Pixel>();
@@ -76,10 +35,40 @@ namespace SnakeGame
             Direction = Direction.LEFT;
         }
 
+        public void Move()
+        {
+            //Отрезаем хвост змеи при каждом движении
+            Pixels.Dequeue();
+
+            //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
+            switch (Direction)
+            {
+                case Direction.UP:
+                    _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.DOWN:
+                    _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.LEFT:
+                    _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.RIGHT:
+                    _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+            }
+        }
+
+        public void TryEatDot()
+        {
+        }
+
 
         private void HealthCheck()
         {
-
         }
     }
 }
