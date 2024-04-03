@@ -23,8 +23,9 @@ namespace SnakeGame
         public void Generate(Snake snake)
         {
             Random random = new Random();
-            var y = random.Next(1, _sizeY);
-            var x = random.Next(1, _sizeX);
+
+           int y = random.Next(1, _sizeY -1);
+           int x = random.Next(1, _sizeX -1);
 
             Pixel newPix = new Pixel(x, y, Image.Dot);
 
