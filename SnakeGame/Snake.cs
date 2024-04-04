@@ -92,6 +92,9 @@ namespace SnakeGame
             {
                 _head = new Pixel(dot.Pixel.X, dot.Pixel.Y, Image.Snake);
                 Pixels.Enqueue(_head);
+                // Затираем точку на поле и создаем новую 
+                dot.Pixel.Image = Image.Empty;
+                dot.Generate(this);
             }
         }
 
