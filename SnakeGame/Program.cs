@@ -52,10 +52,8 @@ class Program
                 default:
                     break;
             }
-            Thread.Sleep(1000);
         }
         return Task.CompletedTask;
-
     }
     private static Task ExecuteGameProcess(Frame frame, Dot dot, Snake snake)
     {
@@ -65,7 +63,7 @@ class Program
             if (snake.IsAlive)
             {
                 DoAct(frame, dot, snake);
-                Console.WriteLine($"Score:  { snake.Length - 3}") ;
+                Console.WriteLine($"Score: { snake.Length - 3}") ;
                 Thread.Sleep(500);
             }
             else
@@ -73,8 +71,7 @@ class Program
                 Console.WriteLine("GAME OVER");
                 Console.WriteLine($"Your score: {snake.Length - 3}");
                 return Task.CompletedTask;
-            }
-            
+            }          
         }
     }
 
