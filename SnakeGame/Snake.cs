@@ -13,7 +13,7 @@ namespace SnakeGame
 
         public Direction Direction { get; set; } = Direction.LEFT;
 
-        public int Length { get; }
+        public int Length => Pixels.Count;
 
         public bool IsAlive { get; set; } = true;
 
@@ -62,9 +62,36 @@ namespace SnakeGame
             }
         }
 
-        public void TryEatDot()
+        public void TryEatDot(Dot dot)
         {
+            Pixel nextPosition;
+
+            switch (Direction)
+            {
+                case Direction.UP:
+                    nextPosition = new Pixel(_head.X, _head.Y - 1, Image.Snake);
+                    break;
+                case Direction.DOWN:
+                    nextPosition = new Pixel(_head.X, _head.Y + 1, Image.Snake);
+                    break;
+                case Direction.LEFT:
+                    nextPosition = new Pixel(_head.X - 1, _head.Y, Image.Snake);
+                    break;
+                case Direction.RIGHT:
+                    nextPosition = new Pixel(_head.X + 1, _head.Y, Image.Snake);
+                    break;
+                default:
+                    nextPosition = _head;
+                    break;
+            }
+
+            if (nextPosition.X == dot.Pixel.X && nextPosition.Y == dot.Pixel.Y)
+            {
+                _head = new Pixel(dot.Pixel.X, dot.Pixel.Y, Image.Snake);
+                Pixels.Enqueue(_head);
+            }
         }
+
 
         private void HealthCheck()
         {
