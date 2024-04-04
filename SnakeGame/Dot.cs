@@ -44,7 +44,6 @@ namespace SnakeGame
                 {
                     flag = false;
                     Pixel = new Pixel(x, y, Image.Dot);
-
                 }
             }
         }

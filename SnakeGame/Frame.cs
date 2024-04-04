@@ -11,8 +11,8 @@ namespace SnakeGame
     {
         private Image[,] _values;
 
-        private int _sizeX;
-        private int _sizeY;
+        private readonly int _sizeX;
+        private readonly int _sizeY;
 
         public Frame(int _sizeX, int _sizeY)
         {

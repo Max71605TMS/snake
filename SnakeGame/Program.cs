@@ -9,7 +9,7 @@ class Program
 
     static async Task Main(string[] args)
     {
-       
+
         //team2
         Init();
         Console.CursorVisible = false;
@@ -41,10 +41,10 @@ class Program
                     snake.Direction = snake.Direction != Direction.RIGHT ? Direction.LEFT : snake.Direction;
                     break;
                 case ConsoleKey.RightArrow:
-                    snake.Direction =  snake.Direction != Direction.LEFT ? Direction.RIGHT : snake.Direction;
+                    snake.Direction = snake.Direction != Direction.LEFT ? Direction.RIGHT : snake.Direction;
                     break;
                 case ConsoleKey.UpArrow:
-                    snake.Direction = snake.Direction != Direction.DOWN ?  Direction.UP : snake.Direction;
+                    snake.Direction = snake.Direction != Direction.DOWN ? Direction.UP : snake.Direction;
                     break;
                 case ConsoleKey.DownArrow:
                     snake.Direction = snake.Direction != Direction.UP ? Direction.DOWN : snake.Direction;
@@ -57,13 +57,13 @@ class Program
     }
     private static Task ExecuteGameProcess(Frame frame, Dot dot, Snake snake)
     {
-        
+
         while (true)
         {
             if (snake.IsAlive)
             {
                 DoAct(frame, dot, snake);
-                Console.WriteLine($"Score: { snake.Length - 3}") ;
+                Console.WriteLine($"Score: {snake.Length - 3}");
                 Thread.Sleep(500);
             }
             else
@@ -71,7 +71,7 @@ class Program
                 Console.WriteLine("GAME OVER");
                 Console.WriteLine($"Your score: {snake.Length - 3}");
                 return Task.CompletedTask;
-            }          
+            }
         }
     }
 
@@ -82,7 +82,7 @@ class Program
         snake.TryEatDot(dot);
         snake.Move();
         frame.Display();
-        frame.Clear();  
+        frame.Clear();
     }
 
 

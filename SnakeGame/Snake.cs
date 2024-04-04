@@ -9,8 +9,8 @@ namespace SnakeGame
     public class Snake
     {
         private Pixel _head;
-        private int _frameSizeX;
-        private int _frameSizeY;
+        private readonly int _frameSizeX;
+        private readonly int _frameSizeY;
         public Queue<Pixel> Pixels { get; set; }
 
         public Direction Direction { get; set; } = Direction.LEFT;
@@ -102,7 +102,6 @@ namespace SnakeGame
                 dot.Generate(this);
             }
         }
-
 
         private void HealthCheck()
         {
