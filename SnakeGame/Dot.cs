@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SnakeGame
 {
@@ -22,7 +23,7 @@ namespace SnakeGame
             Random random = new Random();
             int y = random.Next(1, _sizeY - 1);
             int x = random.Next(1, _sizeX - 1);
-            
+
 
             if (snake.Pixels.Count == 0)
             {
