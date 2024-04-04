@@ -70,9 +70,8 @@ class Program
             }
             else
             {
-                Console.Clear();
                 Console.WriteLine("GAME OVER");
-                Console.WriteLine("Your score: " + (snake.Length - 3));
+                Console.WriteLine($"Your score: {snake.Length - 3}");
                 return Task.CompletedTask;
             }
             
