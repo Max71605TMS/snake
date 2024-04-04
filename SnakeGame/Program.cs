@@ -59,22 +59,24 @@ class Program
     }
     private static Task ExecuteGameProcess(Frame frame, Dot dot, Snake snake)
     {
+        
         while (true)
         {
             if (snake.IsAlive)
             {
                 DoAct(frame, dot, snake);
-                Console.WriteLine("Score: " + (snake.Length - 3));
+                Console.WriteLine($"Score:  { snake.Length - 3}") ;
                 Thread.Sleep(500);
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("GAME OVER");
-                Console.WriteLine("Your score: " + (snake.Length - 3));
-                break;
-            }          
+                Console.WriteLine($"Your score: {snake.Length - 3}");
+                return Task.CompletedTask;
+            }
+            
         }
-        return Task.CompletedTask;
     }
 
     private static void DoAct(Frame frame, Dot dot, Snake snake)
@@ -84,10 +86,7 @@ class Program
         frame.SetSnake(snake);
         snake.Move();
         frame.Display();
-        frame.Clear();
-
-
-     
+        frame.Clear();  
     }
 
 
