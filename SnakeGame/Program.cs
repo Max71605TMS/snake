@@ -9,8 +9,10 @@ class Program
 
     static async Task Main(string[] args)
     {
+       
         //team2
         Init();
+        Console.CursorVisible = false;
         Frame frame = new Frame(SizeX, SizeY);
         Snake snake = new Snake(SizeX, SizeY, SnakeLength);
         Dot dot = new Dot(SizeX, SizeY);
@@ -57,6 +59,7 @@ class Program
     }
     private static Task ExecuteGameProcess(Frame frame, Dot dot, Snake snake)
     {
+        
         while (true)
         {
             if (snake.IsAlive)
@@ -67,12 +70,13 @@ class Program
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("GAME OVER");
                 Console.WriteLine("Your score: " + (snake.Length - 3));
-                break;
-            }          
+                return Task.CompletedTask;
+            }
+            
         }
-        return Task.CompletedTask;
     }
 
     private static void DoAct(Frame frame, Dot dot, Snake snake)
@@ -82,10 +86,7 @@ class Program
         snake.TryEatDot(dot);
         snake.Move();
         frame.Display();
-        frame.Clear();
-
-
-     
+        frame.Clear();  
     }
 
 
