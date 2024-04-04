@@ -38,16 +38,16 @@ class Program
             switch (keyInfo.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    snake.Direction = Direction.LEFT;
+                    snake.Direction = snake.Direction != Direction.RIGHT ? Direction.LEFT : snake.Direction;
                     break;
                 case ConsoleKey.RightArrow:
-                    snake.Direction = Direction.RIGHT;
+                    snake.Direction =  snake.Direction != Direction.LEFT ? Direction.RIGHT : snake.Direction;
                     break;
                 case ConsoleKey.UpArrow:
-                    snake.Direction = Direction.UP;
+                    snake.Direction = snake.Direction != Direction.DOWN ?  Direction.UP : snake.Direction;
                     break;
                 case ConsoleKey.DownArrow:
-                    snake.Direction = Direction.DOWN;
+                    snake.Direction = snake.Direction != Direction.UP ? Direction.DOWN : snake.Direction;
                     break;
                 default:
                     break;
