@@ -36,29 +36,32 @@ namespace SnakeGame
 
         public void Move()
         {
-            //Отрезаем хвост змеи при каждом движении
-            Pixels.Peek().Image = Image.Empty;
-            Pixels.Dequeue();
-
-            //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
-            switch (Direction)
+            this.HealthCheck();
+            if (IsAlive)
             {
-                case Direction.UP:
-                    _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
-                    Pixels.Enqueue(_head);
-                    break;
-                case Direction.DOWN:
-                    _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
-                    Pixels.Enqueue(_head);
-                    break;
-                case Direction.LEFT:
-                    _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
-                    Pixels.Enqueue(_head);
-                    break;
-                case Direction.RIGHT:
-                    _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
-                    Pixels.Enqueue(_head);
-                    break;
+                //Отрезаем хвост змеи при каждом движении
+                Pixels.Dequeue();
+
+                //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
+                switch (Direction)
+                {
+                    case Direction.UP:
+                        _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
+                        Pixels.Enqueue(_head);
+                        break;
+                    case Direction.DOWN:
+                        _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
+                        Pixels.Enqueue(_head);
+                        break;
+                    case Direction.LEFT:
+                        _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
+                        Pixels.Enqueue(_head);
+                        break;
+                    case Direction.RIGHT:
+                        _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
+                        Pixels.Enqueue(_head);
+                        break;
+                }
             }
         }
 
@@ -98,16 +101,16 @@ namespace SnakeGame
             switch (Direction)
             {
                 case Direction.UP:
-                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y - 1, Image.Snake));
+                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y - 1);
                     break;
                 case Direction.DOWN:
-                    IsAlive = !Pixels.Contains(new Pixel(_head.X, _head.Y + 1, Image.Snake));
+                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y + 1);
                     break;
                 case Direction.LEFT:
-                    IsAlive = !Pixels.Contains(new Pixel(_head.X - 1, _head.Y, Image.Snake));
+                    IsAlive = !Pixels.Any(p => p.X == _head.X - 1 && p.Y == _head.Y);
                     break;
                 case Direction.RIGHT:
-                    IsAlive = !Pixels.Contains(new Pixel(_head.X + 1, _head.Y, Image.Snake));
+                    IsAlive = !Pixels.Any(p => p.X == _head.X + 1 && p.Y == _head.Y);
                     break;
             }
         }

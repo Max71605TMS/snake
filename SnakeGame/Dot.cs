@@ -33,7 +33,7 @@ namespace SnakeGame
 
             while (flag)
             {
-                if (snake.Pixels.Contains(new Pixel(x, y, Image.Snake)))
+                if (snake.Pixels.Any(p => p.X == x && p.Y == y))
                 {
                     y = random.Next(1, _sizeY - 1);
                     x = random.Next(1, _sizeX) - 1;
@@ -43,6 +43,7 @@ namespace SnakeGame
                 {
                     flag = false;
                     Pixel = new Pixel(x, y, Image.Dot);
+
                 }
             }
         }
