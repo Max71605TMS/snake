@@ -9,8 +9,10 @@ class Program
 
     static async Task Main(string[] args)
     {
+       
         //team2
         Init();
+        Console.CursorVisible = false;
         Frame frame = new Frame(SizeX, SizeY);
         Snake snake = new Snake(SizeX, SizeY, SnakeLength);
         Dot dot = new Dot(SizeX, SizeY);
