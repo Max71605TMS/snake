@@ -72,7 +72,7 @@ class Program
             {
                 Console.Clear();
                 Console.WriteLine("GAME OVER");
-                Console.WriteLine($"Your score: {snake.Length - 3}");
+                Console.WriteLine("Your score: " + (snake.Length - 3));
                 return Task.CompletedTask;
             }
             
@@ -81,9 +81,9 @@ class Program
 
     private static void DoAct(Frame frame, Dot dot, Snake snake)
     {
-        snake.TryEatDot(dot);
         frame.SetDot(dot);
         frame.SetSnake(snake);
+        snake.TryEatDot(dot);
         snake.Move();
         frame.Display();
         frame.Clear();  
