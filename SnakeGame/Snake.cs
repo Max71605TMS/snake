@@ -9,6 +9,8 @@ namespace SnakeGame
     public class Snake
     {
         private Pixel _head;
+        private int _frameSizeX;
+        private int _frameSizeY;
         public Queue<Pixel> Pixels { get; set; }
 
         public Direction Direction { get; set; } = Direction.LEFT;
@@ -19,6 +21,9 @@ namespace SnakeGame
 
         public Snake(int frameSizeX, int frameSizeY, int snakeLength)
         {
+            _frameSizeX = frameSizeX;
+            _frameSizeY = frameSizeY;
+
             Pixels = new Queue<Pixel>();
 
             int xHead = frameSizeX / 2;
@@ -104,16 +109,17 @@ namespace SnakeGame
             switch (Direction)
             {
                 case Direction.UP:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y - 1);
+                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y - 1 || _head.Y - 1 == 0);
+
                     break;
                 case Direction.DOWN:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y + 1);
+                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y + 1 || _head.Y + 1 == _frameSizeY - 1);
                     break;
                 case Direction.LEFT:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X - 1 && p.Y == _head.Y);
+                    IsAlive = !Pixels.Any(p => p.X == _head.X - 1 && p.Y == _head.Y || _head.X - 1 == 0);
                     break;
                 case Direction.RIGHT:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X + 1 && p.Y == _head.Y);
+                    IsAlive = !Pixels.Any(p => p.X == _head.X + 1 && p.Y == _head.Y || _head.X + 1 == _frameSizeX - 1);
                     break;
             }
         }

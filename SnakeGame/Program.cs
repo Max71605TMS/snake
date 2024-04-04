@@ -77,9 +77,9 @@ class Program
 
     private static void DoAct(Frame frame, Dot dot, Snake snake)
     {
-        snake.TryEatDot(dot);
         frame.SetDot(dot);
         frame.SetSnake(snake);
+        snake.TryEatDot(dot);
         snake.Move();
         frame.Display();
         frame.Clear();
