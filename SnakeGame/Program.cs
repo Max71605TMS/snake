@@ -12,7 +12,7 @@ class Program
     static async Task Main(string[] args)
     {
         //team2
-        Init(out Snake snake, out Frame frame, out Dot dot);
+        Init(out var snake, out var frame, out var dot);
         Task conductSnakeTask = Task.Run(() => GuideSnake(snake));
         Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess(frame, dot, snake));
 
