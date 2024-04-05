@@ -8,9 +8,10 @@ class Program
     static async Task Main(string[] args)
     {
         //Team1 starts
+        Frame frame = new Frame(SizeX, SizeY); //1
         Init();
         Task conductSnakeTask = Task.Run(() => GuideSnake(new Snake()));
-        Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
+        Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess(frame));
 
         Task.WaitAll(conductSnakeTask, executeGameProcessTask);
     }
@@ -55,19 +56,19 @@ class Program
         return Task.CompletedTask;
     }
 
-    private static Task ExecuteGameProcess()
+    private static Task ExecuteGameProcess(Frame frame)
     {
         while (true)
         {
-            DoAct();
+            DoAct(frame);
             Thread.Sleep(1000);
         }
         return Task.CompletedTask;
     }
 
-    private static void DoAct()
+    private static void DoAct(Frame frame)
     {
-
+        frame.Display();
     }
 
 
