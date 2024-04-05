@@ -78,24 +78,29 @@ namespace SnakeGame
             {
                 for (int j = 0; j < _values.GetLength(1); j++)
                 {
-                    switch (_values[i, j])
-                    {
-                        case Image.Empty:
-                            Console.Write(" ");
-                            break;
-                        case Image.Snake:
-                        case Image.Dot:
-                            Console.Write("*");
-                            break;
-                        case Image.VerticalBorder:
-                            Console.Write("|");
-                            break;
-                        case Image.HorizontalBorder:
-                            Console.Write("-");
-                            break;
-                    }
+                    DrowFrameToConsole(i, j);
                 }
                 Console.WriteLine();
+            }
+        }
+
+        private void DrowFrameToConsole(int i, int j)
+        {
+            switch (_values[i, j])
+            {
+                case Image.Empty:
+                    Console.Write(" ");
+                    break;
+                case Image.Snake:
+                case Image.Dot:
+                    Console.Write("*");
+                    break;
+                case Image.VerticalBorder:
+                    Console.Write("|");
+                    break;
+                case Image.HorizontalBorder:
+                    Console.Write("-");
+                    break;
             }
         }
     }

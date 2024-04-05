@@ -11,21 +11,21 @@ class Program
     {
 
         //team2
-        Init();
-        Console.CursorVisible = false;
-        Frame frame = new Frame(SizeX, SizeY);
-        Snake snake = new Snake(SizeX, SizeY, SnakeLength);
-        Dot dot = new Dot(SizeX, SizeY);
-        dot.Generate(snake);
-
+        Init(out Snake snake, out Frame frame, out Dot dot);
         Task conductSnakeTask = Task.Run(() => GuideSnake(snake));
         Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess(frame, dot, snake));
 
         Task.WaitAll(conductSnakeTask, executeGameProcessTask);
     }
 
-    private static void Init()
+    private static void Init(out Snake snake, out Frame frame, out Dot dot)
     {
+        Console.CursorVisible = false;
+        frame = new Frame(SizeX, SizeY);
+        snake = new Snake(SizeX, SizeY, SnakeLength);
+        dot = new Dot(SizeX, SizeY);
+        dot.Generate(snake);
+        
         Console.WriteLine("Welcome to Snake game, Press Any key to start");
         var key = Console.ReadKey(true);
     }
@@ -53,8 +53,6 @@ class Program
                 case ConsoleKey.S:
                     snake.Direction = snake.Direction != Direction.UP ? Direction.DOWN : snake.Direction;
                     break;
-                default:
-                    break;
             }
         }
         return Task.CompletedTask;
@@ -67,13 +65,13 @@ class Program
             if (snake.IsAlive)
             {
                 DoAct(frame, dot, snake);
-                Console.WriteLine($"Score: {snake.Length - 3}");
+                Console.WriteLine($"Score: {snake.Length - SnakeLength}");
                 Thread.Sleep(500);
             }
             else
             {
                 Console.WriteLine("GAME OVER");
-                Console.WriteLine($"Your score: {snake.Length - 3}");
+                Console.WriteLine($"Your score: {snake.Length - SnakeLength}");
                 return Task.CompletedTask;
             }
         }

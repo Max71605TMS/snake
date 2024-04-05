@@ -17,7 +17,7 @@ namespace SnakeGame
 
         public int Length => Pixels.Count;
 
-        public bool IsAlive { get; set; } = true;
+        public bool IsAlive { get; private set; } = true;
 
         public Snake(int frameSizeX, int frameSizeY, int snakeLength)
         {
@@ -44,29 +44,34 @@ namespace SnakeGame
             this.HealthCheck();
             if (IsAlive)
             {
-                //Отрезаем хвост змеи при каждом движении
-                Pixels.Dequeue();
+                MoveTheSnake();
+            }
+        }
 
-                //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
-                switch (Direction)
-                {
-                    case Direction.UP:
-                        _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
-                        Pixels.Enqueue(_head);
-                        break;
-                    case Direction.DOWN:
-                        _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
-                        Pixels.Enqueue(_head);
-                        break;
-                    case Direction.LEFT:
-                        _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
-                        Pixels.Enqueue(_head);
-                        break;
-                    case Direction.RIGHT:
-                        _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
-                        Pixels.Enqueue(_head);
-                        break;
-                }
+        private void MoveTheSnake()
+        {
+            //Отрезаем хвост змеи при каждом движении
+            Pixels.Dequeue();
+
+            //В зависимости от текущего значения Direction, создаем новый _head и добавляем в конец очереди
+            switch (Direction)
+            {
+                case Direction.UP:
+                    _head = new Pixel(_head.X, _head.Y - 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.DOWN:
+                    _head = new Pixel(_head.X, _head.Y + 1, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.LEFT:
+                    _head = new Pixel(_head.X - 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
+                case Direction.RIGHT:
+                    _head = new Pixel(_head.X + 1, _head.Y, Image.Snake);
+                    Pixels.Enqueue(_head);
+                    break;
             }
         }
 
