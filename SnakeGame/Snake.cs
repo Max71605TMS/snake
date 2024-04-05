@@ -41,7 +41,7 @@ namespace SnakeGame
 
         public void Move()
         {
-            this.HealthCheck();
+            HealthCheck();
             if (IsAlive)
             {
                 MoveTheSnake();
@@ -77,26 +77,13 @@ namespace SnakeGame
 
         public void TryEatDot(Dot dot)
         {
-            Pixel nextPosition;
-
-            switch (Direction)
+            Pixel nextPosition = Direction switch
             {
-                case Direction.UP:
-                    nextPosition = new Pixel(_head.X, _head.Y - 1, Image.Snake);
-                    break;
-                case Direction.DOWN:
-                    nextPosition = new Pixel(_head.X, _head.Y + 1, Image.Snake);
-                    break;
-                case Direction.LEFT:
-                    nextPosition = new Pixel(_head.X - 1, _head.Y, Image.Snake);
-                    break;
-                case Direction.RIGHT:
-                    nextPosition = new Pixel(_head.X + 1, _head.Y, Image.Snake);
-                    break;
-                default:
-                    nextPosition = _head;
-                    break;
-            }
+                Direction.UP => new Pixel(_head.X, _head.Y - 1, Image.Snake),
+                Direction.DOWN => new Pixel(_head.X, _head.Y + 1, Image.Snake),
+                Direction.LEFT => new Pixel(_head.X - 1, _head.Y, Image.Snake),
+                Direction.RIGHT => new Pixel(_head.X + 1, _head.Y, Image.Snake)
+            };
 
             if (nextPosition.X == dot.Pixel.X && nextPosition.Y == dot.Pixel.Y)
             {
@@ -110,22 +97,20 @@ namespace SnakeGame
 
         private void HealthCheck()
         {
-            switch (Direction)
+            IsAlive = Direction switch
             {
-                case Direction.UP:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y - 1 || _head.Y - 1 == 0);
+                Direction.UP => IsSnakeAliveCheck(_head.X, _head.Y - 1, _head.Y - 1, 0),
+                Direction.DOWN => IsSnakeAliveCheck(_head.X, _head.Y + 1, _head.Y + 1, _frameSizeY - 1),
+                Direction.LEFT => IsSnakeAliveCheck(_head.X - 1, _head.Y, _head.X - 1, 0),
+                Direction.RIGHT => IsSnakeAliveCheck(_head.X + 1, _head.Y, _head.X + 1, _frameSizeX - 1),
+            };
+        }
 
-                    break;
-                case Direction.DOWN:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X && p.Y == _head.Y + 1 || _head.Y + 1 == _frameSizeY - 1);
-                    break;
-                case Direction.LEFT:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X - 1 && p.Y == _head.Y || _head.X - 1 == 0);
-                    break;
-                case Direction.RIGHT:
-                    IsAlive = !Pixels.Any(p => p.X == _head.X + 1 && p.Y == _head.Y || _head.X + 1 == _frameSizeX - 1);
-                    break;
-            }
+        private bool IsSnakeAliveCheck(int dotFromSnakeHeadX, int dotFromSnakeHeadY, int dotNearBorder,
+            int nearestBorderCorr)
+        {
+            return !Pixels.Any(p =>
+                p.X == dotFromSnakeHeadX && p.Y == dotFromSnakeHeadY || dotNearBorder == nearestBorderCorr);
         }
     }
 }

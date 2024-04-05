@@ -1,15 +1,16 @@
 ﻿using SnakeGame;
 using System.Diagnostics;
 using System.Xml.Linq;
+
 class Program
 {
-    const int SizeX = 50;
-    const int SizeY = 20;
-    const int SnakeLength = 3;
+    private const int SizeX = 50;
+    private const int SizeY = 20;
+    private const int SnakeLength = 3;
+    private const int TimeUpdate = 500;
 
     static async Task Main(string[] args)
     {
-
         //team2
         Init(out Snake snake, out Frame frame, out Dot dot);
         Task conductSnakeTask = Task.Run(() => GuideSnake(snake));
@@ -25,7 +26,7 @@ class Program
         snake = new Snake(SizeX, SizeY, SnakeLength);
         dot = new Dot(SizeX, SizeY);
         dot.Generate(snake);
-        
+
         Console.WriteLine("Welcome to Snake game, Press Any key to start");
         var key = Console.ReadKey(true);
     }
@@ -55,18 +56,19 @@ class Program
                     break;
             }
         }
+
         return Task.CompletedTask;
     }
+
     private static Task ExecuteGameProcess(Frame frame, Dot dot, Snake snake)
     {
-
         while (true)
         {
             if (snake.IsAlive)
             {
                 DoAct(frame, dot, snake);
                 Console.WriteLine($"Score: {snake.Length - SnakeLength}");
-                Thread.Sleep(500);
+                Thread.Sleep(TimeUpdate);
             }
             else
             {
@@ -86,6 +88,4 @@ class Program
         frame.Display();
         frame.Clear();
     }
-
-
 }
