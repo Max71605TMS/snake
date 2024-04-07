@@ -1,6 +1,6 @@
 ﻿using SnakeGame;
 
-class Program
+internal class Program
 {
     private const int SizeX = 20;
     private const int SizeY = 50;
@@ -9,12 +9,12 @@ class Program
     private static Snake _snake;
     private static Dot _dot;
 
-    static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
         //Team1 starts
         Init();
-        Task conductSnakeTask = Task.Run(() => GuideSnake());
-        Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
+        var conductSnakeTask = Task.Run(() => GuideSnake());
+        var executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
 
         Task.WaitAll(conductSnakeTask, executeGameProcessTask);
     }
@@ -33,7 +33,7 @@ class Program
         _frame.Display();
 
         Console.WriteLine("Welcome to Snake game, Press Any key to start");
-        var key = Console.ReadKey(true);
+        Console.ReadKey(true);
     }
 
     private static Task GuideSnake()
@@ -72,22 +72,52 @@ class Program
 
     private static Task ExecuteGameProcess()
     {
-        while (true)
+        var score = 0;
+        const int winScore = (SizeX - 2) * (SizeY - 2) - 1 - 2;
+
+        while (_snake.IsAlive)
         {
             DoAct();
+            score = _snake.Length;
+
+            DisplayScore(score);
+
+            if (_frame.CountDots() == _snake.Length + 2 && score == winScore) break;
             Thread.Sleep(1000);
         }
 
+        if (_snake.IsAlive && score == winScore)
+        {
+            DisplayWin();
+            return Task.CompletedTask;
+        }
+
+        DisplayLoos();
         return Task.CompletedTask;
+    }
+
+    private static void DisplayScore(int score)
+    {
+        Console.WriteLine($"Общий счет: {score}");
+    }
+
+    private static void DisplayWin()
+    {
+        Console.WriteLine("Вы выиграли!");
+    }
+
+    private static void DisplayLoos()
+    {
+        Console.WriteLine("Вы проиграли! Ваша змея умерла!");
     }
 
     private static void DoAct()
     {
         _snake.Move();
         _snake.TryEatDot(_dot);
+        _frame.Clear();
         _frame.SetSnake(_snake);
         _frame.SetDot(_dot);
-        _frame.Clear();
         _frame.Display();
     }
 }

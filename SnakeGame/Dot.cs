@@ -1,34 +1,35 @@
-﻿namespace SnakeGame
-{
-    public class Dot
-    {
-        private readonly int _sizeX;
-        private readonly int _sizeY;
+﻿namespace SnakeGame;
 
-        public Dot(int sizeX, int sizeY)
+public class Dot
+{
+    private readonly int _sizeX;
+    private readonly int _sizeY;
+
+    public Dot(int sizeX, int sizeY)
+    {
+        _sizeX = sizeX;
+        _sizeY = sizeY;
+    }
+
+    public Pixel? Pixel { get; private set; }
+
+    public void Generate(Snake snake)
+    {
+        if ((_sizeX - 2) * (_sizeY - 2) - 1 == snake.Length + 2)
         {
-            _sizeX = sizeX;
-            _sizeY = sizeY;
+            Pixel = null;
+            return;
         }
 
-        public Pixel Pixel { get; private set; }
+        var random = new Random();
 
-        public void Generate(Snake snake)
+        var isSnake = false;
+
+        while (!isSnake)
         {
-            var random = new Random();
+            Pixel = new Pixel(random.Next(1, _sizeX - 1), random.Next(1, _sizeY - 1), Image.Dot);
 
-            while (true)
-            {
-                Pixel = new Pixel(random.Next(1, _sizeX - 1), random.Next(1, _sizeY - 1), Image.Dot);
-
-                foreach (var pixel in snake.Pixels)
-                {
-                    if (pixel.X == Pixel.X && pixel.Y == Pixel.Y)
-                        continue;
-                }
-
-                break;
-            }
+            isSnake = !snake.Pixels.Any(a => a.X == Pixel.X && a.Y == Pixel.Y);
         }
     }
 }

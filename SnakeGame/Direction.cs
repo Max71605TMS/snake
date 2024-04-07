@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SnakeGame;
 
-namespace SnakeGame
+public enum Direction
 {
-    public enum Direction
-    {
-        UP,
-        DOWN, 
-        LEFT, 
-        RIGHT
-    }
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
 }
