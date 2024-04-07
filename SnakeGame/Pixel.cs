@@ -11,14 +11,13 @@ namespace SnakeGame
         public int X {get; set;}
         public int Y { get; set; }
 
-        public Pixel() { }
+        public Image Image { get; set;}
 
-        public Pixel(int x, int y)
+        public Pixel(int x, int y, Image image)
         {
             X = x;
             Y = y;
+            Image = image;
         }
-
-        public Image Image { get; set;}
     }
 }

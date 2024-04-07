@@ -38,18 +38,6 @@ namespace SnakeGame
             _values[dot.Pixel.X, dot.Pixel.Y] = Image.Dot;
         }
 
-        public void Clear()
-        {
-            Console.ResetColor();
-            for (int i = 1; i < _sizeX - 1; i++)
-            {
-                for (int j = 1; j < _sizeY - 1; j++)
-                {
-                    _values[i, j] = Image.Empty;
-                }
-            }
-        }
-
         public void Display()
         {
             for (int i = 0; i < _sizeX; i++)
@@ -69,6 +57,19 @@ namespace SnakeGame
                 }
 
                 Console.WriteLine();
+            }
+        }
+
+        public void Clear()
+        {
+            Console.Clear();
+            Console.ResetColor();
+            for (int i = 1; i < _sizeX - 1; i++)
+            {
+                for (int j = 1; j < _sizeY - 1; j++)
+                {
+                    _values[i, j] = Image.Empty;
+                }
             }
         }
 

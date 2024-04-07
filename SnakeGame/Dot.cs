@@ -11,40 +11,31 @@ namespace SnakeGame
     {
         private readonly int _sizeX;
         private readonly int _sizeY;
-        private Queue<Pixel> _Pixels;
 
-        public Pixel Pixel { get; set; }        
-       
-        public Dot (Queue<Pixel> Pixels)
+        public Pixel Pixel { get; private set; }
+        
+        public Dot (int sizeX, int sizeY)
         {
-            _Pixels = Pixels;
+            _sizeX = sizeX;
+            _sizeY = sizeY;
         }
+        
+        public void Generate(Snake snake)
+        {
+            var random = new Random();
 
-        public Dot (int SizeX, int SizeY)
-        {
-            _sizeX = SizeX;
-            _sizeY = SizeY; 
-            
-        }
-        public void Generate()
-        {
-            bool a = true;
-            do
+            while (true)
             {
+                Pixel = new Pixel(random.Next(1, _sizeX - 1), random.Next(1, _sizeY - 1), Image.Dot);
 
-
-                Random Random = new Random();
-                Pixel NewPixel = new Pixel();
-                NewPixel.X = Random.Next(1, _sizeX - 1);
-                NewPixel.Y = Random.Next(1, _sizeY - 1);                
-                foreach (var pixel in _Pixels)
+                foreach (var pixel in snake.Pixels)
                 {
-                    if (pixel.X == Pixel.X || pixel.Y == Pixel.Y)
-                    {
-                        a = false;
-                    }
+                    if (pixel.X == Pixel.X && pixel.Y == Pixel.Y)
+                        continue;
                 }
-            } while (a != true);
+                
+                break;
+            }
         }
     }
 }

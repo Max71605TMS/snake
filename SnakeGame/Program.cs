@@ -2,14 +2,18 @@
 
 class Program
 {
-    public const int SizeX= 20;
-    public const int SizeY = 50;
+    private const int SizeX= 20;
+    private const int SizeY = 50;
+
+    private static Frame _frame;
+    private static Snake _snake;
+    private static Dot _dot;
 
     static async Task Main(string[] args)
     {
         //Team1 starts
         Init();
-        Task conductSnakeTask = Task.Run(() => GuideSnake(new Snake()));
+        Task conductSnakeTask = Task.Run(() => GuideSnake());
         Task executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
 
         Task.WaitAll(conductSnakeTask, executeGameProcessTask);
@@ -17,13 +21,24 @@ class Program
 
     private static void Init()
     {
+        _snake = new Snake(SizeX, SizeY);
+        
+        _dot = new Dot(SizeX, SizeY);
+        _dot.Generate(_snake);
+
+        _frame = new Frame(SizeX, SizeY);
+        _frame.SetDot(_dot);
+        _frame.SetSnake(_snake);
+        
+        _frame.Display();
+        
         Console.WriteLine("Welcome to Snake game, Press Any key to start");
         var key = Console.ReadKey(true);
     }
 
-    private static Task GuideSnake(Snake snake)
+    private static Task GuideSnake()
     {
-        while (snake.IsAlive)
+        while (_snake.IsAlive)
         {
             Direction nextDirection;
             
@@ -49,7 +64,7 @@ class Program
                     continue;
             }
 
-            snake.Direction = nextDirection;
+            _snake.Direction = nextDirection;
         }
         
         return Task.CompletedTask;
@@ -67,7 +82,12 @@ class Program
 
     private static void DoAct()
     {
-
+        _frame.Clear();
+        _snake.Move();
+        _snake.TryEatDot(_dot);
+        _frame.SetSnake(_snake);
+        _frame.SetDot(_dot);
+        _frame.Display();
     }
 
 

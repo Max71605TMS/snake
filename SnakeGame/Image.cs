@@ -10,7 +10,7 @@ namespace SnakeGame
     {
         Empty = ' ',
         Snake = '*',
-        Dot = '*',
+        Dot = '@',
         VerticalBorder = '║',
         HorizontalBorder = '═',
         UpperLeftCorner = '╔',

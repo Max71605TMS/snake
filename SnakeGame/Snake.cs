@@ -10,110 +10,103 @@ namespace SnakeGame
 {
     public class Snake
     {
-        private Pixel _head = new Pixel(SizeX / 2, SizeY / 2);
+        private readonly int _sizeX;
+        private readonly int _sizeY;
+        
+        private Pixel _head;
 
-        private Direction? _currentDirection = null;
+        private Direction _currentDirection = Direction.UP;
 
-        public Queue<Pixel> Pixels { get; set; }
+        public Queue<Pixel> Pixels { get;} = new();
 
-        public Direction Direction { get; set; }
+        public Direction Direction { get; set; } = Direction.UP;
 
-        public int Length { get; }
+        public int Length => Pixels.Count - 3;
 
-        public bool IsAlive { get; } = true;
+        public bool IsAlive { get; private set; } = true;
 
-        public void Move(Direction direction)
+        public Snake(int sizeX, int sizeY)
         {
-            _currentDirection = CheckOppositeDirection(_currentDirection, direction);
+            _sizeX = sizeX;
+            _sizeY = sizeY;
+            
+            const int snakeInitLength = 3;
 
-            switch (_currentDirection)
+            for (var i = snakeInitLength - 1; i >= 0; i--)
+            {
+                var part = new Pixel(_sizeX / 2 + i, _sizeY / 2, Image.Snake);
+            
+                Pixels.Enqueue(part);
+            }
+        }
+
+        public void Move()
+        {
+            var head = Pixels.Last();
+            var newHead = new Pixel(head.X, head.Y, head.Image);
+            
+            switch (Direction)
             {
                 case Direction.UP:
-                    _head.Y++;
+                    if (_currentDirection == Direction.DOWN)
+                    {
+                        goto case Direction.DOWN;
+                    }
+                    _currentDirection = Direction;
+                    newHead.X--;
                     break;
                 case Direction.DOWN:
-                    _head.Y--;
+                    if (_currentDirection == Direction.UP)
+                    {
+                        goto case Direction.UP;
+                    }
+                    _currentDirection = Direction;
+                    newHead.X++;
                     break;
                 case Direction.RIGHT:
-                    _head.X++;
+                    if (_currentDirection == Direction.LEFT)
+                    {
+                        goto case Direction.LEFT;
+                    }
+                    _currentDirection = Direction;
+                    newHead.Y++;
                     break;
                 case Direction.LEFT:
-                    _head.X--;
+                    if (_currentDirection == Direction.RIGHT)
+                    {
+                        goto case Direction.RIGHT;
+                    }
+                    _currentDirection = Direction;
+                    newHead.Y--;
                     break;
             }
 
-            Pixels.Enqueue(_head);
+            Pixels.Enqueue(newHead);
             Pixels.Dequeue();
 
-            HealthCheck(_head.X, _head.Y);
+            HealthCheck(newHead);
+
+            _head = newHead;
         }
 
         public void TryEatDot(Dot dot)
         {
-            switch (Direction)
-            {
-                case Direction.DOWN:
-                    if (_head.Y - 1 == dot.Pixel.Y && _head.X == dot.Pixel.X)
-                    {
-                        EatingDot(dot);
-                    }
-                    break;
-                case Direction.UP:
-                    if (_head.Y + 1 == dot.Pixel.Y && _head.X == dot.Pixel.X)
-                    {
-                        EatingDot(dot);
-                    }
-                    break;
-                case Direction.LEFT:
-                    if (_head.X - 1 == dot.Pixel.X && _head.Y == dot.Pixel.Y)
-                    {
-                        EatingDot(dot);
-                    }
-                    break;
-                case Direction.RIGHT:
-                    if (_head.X + 1 == dot.Pixel.X && _head.Y == dot.Pixel.Y)
-                    {
-                        EatingDot(dot);
-                    }
-                    break;
-            }
+            if(_head.X == dot.Pixel.X && _head.Y == dot.Pixel.Y)
+                EatingDot(dot);
         }
 
         private void EatingDot(Dot dot)
         {
             Pixels.Enqueue(dot.Pixel);
-            dot.Generate();
+            dot.Generate(this);
         }
 
-        private void HealthCheck(int X, int Y)
+        private void HealthCheck(Pixel head)
         {
-            if (X == 0 || Y == 0 || X == SizeX || Y == SizeY)
+            if (Pixels.Contains(head) || head.X == 0 || head.X == _sizeX - 1 || head.Y == 0 || head.Y == _sizeY - 1)
             {
-                Console.WriteLine(" Змейка ударилась в границу.");
-                Environment.Exit(0);
+                IsAlive = false;
             }
         }
-
-        private Direction? CheckOppositeDirection(Direction? _currentDirection,Direction direction)
-        {
-
-            if (_currentDirection == null)
-            {
-                return direction;
-            }    
-            else
-            {
-                if ((_currentDirection == Direction.LEFT && direction == Direction.RIGHT) ||
-                    (_currentDirection == Direction.UP && direction == Direction.DOWN))
-                {
-                    Console.WriteLine(" Змейка ударилась в саму себя.");
-                    Environment.Exit(0);
-                }
-            }    
-
-            return direction;
-        }
-
-
     }
 }
