@@ -1,25 +1,18 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SnakeGame
+﻿namespace SnakeGame
 {
     public class Dot
     {
         private readonly int _sizeX;
         private readonly int _sizeY;
 
-        public Pixel Pixel { get; private set; }
-        
-        public Dot (int sizeX, int sizeY)
+        public Dot(int sizeX, int sizeY)
         {
             _sizeX = sizeX;
             _sizeY = sizeY;
         }
-        
+
+        public Pixel Pixel { get; private set; }
+
         public void Generate(Snake snake)
         {
             var random = new Random();
@@ -33,7 +26,7 @@ namespace SnakeGame
                     if (pixel.X == Pixel.X && pixel.Y == Pixel.Y)
                         continue;
                 }
-                
+
                 break;
             }
         }
