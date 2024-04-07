@@ -1,6 +1,6 @@
-﻿using SnakeGame;
+﻿namespace SnakeGame;
 
-internal class Program
+internal static class Program
 {
     private const int SizeX = 20;
     private const int SizeY = 50;
@@ -11,12 +11,15 @@ internal class Program
 
     private static async Task Main(string[] args)
     {
-        //Team1 starts
+        Console.CursorVisible = false;
+
         Init();
         var conductSnakeTask = Task.Run(() => GuideSnake());
         var executeGameProcessTask = Task.Run(() => ExecuteGameProcess());
 
         Task.WaitAll(conductSnakeTask, executeGameProcessTask);
+
+        Console.ReadKey(true);
     }
 
     private static void Init()
@@ -83,7 +86,7 @@ internal class Program
             DisplayScore(score);
 
             if (_frame.CountDots() == _snake.Length + 2 && score == winScore) break;
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
 
         if (_snake.IsAlive && score == winScore)
@@ -92,7 +95,7 @@ internal class Program
             return Task.CompletedTask;
         }
 
-        DisplayLoos();
+        DisplayLose();
         return Task.CompletedTask;
     }
 
@@ -103,11 +106,13 @@ internal class Program
 
     private static void DisplayWin()
     {
+        Console.ForegroundColor = (ConsoleColor)GameColors.Win;
         Console.WriteLine("Вы выиграли!");
     }
 
-    private static void DisplayLoos()
+    private static void DisplayLose()
     {
+        Console.ForegroundColor = (ConsoleColor)GameColors.Lose;
         Console.WriteLine("Вы проиграли! Ваша змея умерла!");
     }
 

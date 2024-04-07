@@ -17,7 +17,10 @@ public class Snake
 
         for (var i = SnakeInitLength - 1; i >= 0; i--)
         {
-            var part = new Pixel(_sizeX / 2 + i, _sizeY / 2, Image.Snake);
+            var part = new Pixel(_sizeX / 2 + i, _sizeY / 2,
+                new CharProps { Image = Image.Snake, Color = GameColors.SnakeBody });
+
+            if (i == 0) part.CharProps.Color = GameColors.SnakeHead;
 
             Pixels.Enqueue(part);
         }
@@ -34,7 +37,10 @@ public class Snake
     public void Move()
     {
         var head = Pixels.Last();
-        var newHead = new Pixel(head.X, head.Y, head.Image);
+        var newHead = new Pixel(head.X, head.Y,
+            new CharProps { Image = head.CharProps.Image, Color = head.CharProps.Color });
+
+        foreach (var pixel in Pixels) pixel.CharProps.Color = GameColors.SnakeBody;
 
         switch (Direction)
         {
@@ -100,7 +106,8 @@ public class Snake
     {
         if (dot.Pixel is null) return;
 
-        Pixels.Enqueue(dot.Pixel);
+        Pixels.Enqueue(new Pixel(dot.Pixel.X, dot.Pixel.Y,
+            new CharProps { Image = Image.Snake, Color = GameColors.SnakeHead }));
         dot.Generate(this);
     }
 

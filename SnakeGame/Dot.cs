@@ -27,7 +27,8 @@ public class Dot
 
         while (!isSnake)
         {
-            Pixel = new Pixel(random.Next(1, _sizeX - 1), random.Next(1, _sizeY - 1), Image.Dot);
+            Pixel = new Pixel(random.Next(1, _sizeX - 1), random.Next(1, _sizeY - 1),
+                new CharProps { Image = Image.Dot, Color = GameColors.Dot });
 
             isSnake = !snake.Pixels.Any(a => a.X == Pixel.X && a.Y == Pixel.Y);
         }
