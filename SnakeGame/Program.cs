@@ -2,8 +2,8 @@
 
 class Program
 {
-    const int SizeX= 20;
-    const int SizeY = 50;
+    public const int SizeX= 20;
+    public const int SizeY = 50;
 
     static async Task Main(string[] args)
     {
